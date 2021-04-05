@@ -1,0 +1,95 @@
+{
+  "name": "dnd-ink-ts",
+  "version": "0.0.0",
+  "license": "MIT",
+  "bin": "dist/cli.js",
+  "engines": {
+    "node": ">=8"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "yarn run build && node dist/cli.js",
+    "test": "xo && ava"
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.13.10",
+    "@babel/preset-react": "^7.13.13",
+    "@babel/register": "^7.13.14",
+    "@types/ink": "^2.0.3",
+    "@types/meow": "^5.0.0",
+    "@types/node": "^14.14.37",
+    "@types/react": "^17.0.3",
+    "@typescript-eslint/eslint-plugin": "^4.20.0",
+    "@typescript-eslint/parser": "^4.20.0",
+    "ava": "^3.15.0",
+    "chalk": "^4.1.0",
+    "eslint-config-xo": "^0.35.0",
+    "eslint-config-xo-react": "^0.25.0",
+    "eslint-config-xo-typescript": "^0.38.0",
+    "eslint-plugin-react": "^7.23.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "ink-testing-library": "^2.1.0",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.3",
+    "xo": "^0.38.2"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.13.10",
+    "@types/ink-big-text": "^1.2.0",
+    "@types/ink-gradient": "^2.0.1",
+    "core-js": "^3.10.0",
+    "ink": "^3.0.8",
+    "ink-big-text": "^1.2.0",
+    "ink-gradient": "^2.0.0",
+    "ink-select-input": "^4.2.0",
+    "ink-tab": "^4.1.0",
+    "ink-text-input": "^4.0.1",
+    "ink-use-stdout-dimensions": "^1.0.5",
+    "meow": "^9.0.0",
+    "react": "^17.0.2",
+    "zustand": "^3.3.3"
+  },
+  "ava": {
+    "files": [
+      "src/test.tsx"
+    ],
+    "extensions": [
+      "ts",
+      "tsx"
+    ],
+    "require": [
+      "ts-node/register",
+      "@babel/register"
+    ],
+    "babel": {
+      "testOptions": {
+        "presets": [
+          "@babel/preset-react"
+        ]
+      }
+    },
+    "compileEnhancements": false
+  },
+  "xo": {
+    "extends": [
+      "xo-typescript",
+      "xo-react"
+    ],
+    "extensions": [
+      "ts",
+      "tsx"
+    ],
+    "ignores": [
+      "dist"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "xo",
+      "xo-typescript"
+    ]
+  }
+}
