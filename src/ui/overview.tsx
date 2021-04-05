@@ -17,7 +17,8 @@ const Overview: React.FC<{}> = () => {
     <Box
       borderStyle="round"
       borderColor={getBorder(isFocused, activeView === "overview")}
-      padding={1}
+      paddingX={3}
+      paddingY={1}
     >
       <Text color="yellow">{character.name}</Text>
       <Box marginLeft={4}>

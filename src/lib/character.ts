@@ -8,6 +8,8 @@ export class Character implements ICharacter {
 	class: Class = "Barbarian";
 	alignment: Alignment = "Neutral";
 	level = 1;
+	proficiency = 2;
+	inspiration = false;
 	abilities: Abilities = {
 		strength: { base: 10, proficient: false },
 		dexterity: { base: 10, proficient: false },
@@ -16,7 +18,6 @@ export class Character implements ICharacter {
 		wisdom: { base: 10, proficient: false },
 		charisma: { base: 10, proficient: false },
 	};
-	proficiency = 2;
 	skills: Skills = {
 		acrobatics: { modifiers: 0, proficient: false },
 		animalHandling: { modifiers: 0, proficient: false },
@@ -52,6 +53,7 @@ export class Character implements ICharacter {
 			this.alignment = charData.alignment;
 			this.level = charData.level;
 			this.proficiency = charData.proficiency;
+			this.inspiration = charData.inspiration;
 			this.abilities = charData.abilities;
 			this.skills = charData.skills;
 			this.otherProficienciesAndLanguages =
@@ -232,6 +234,7 @@ export interface ICharacter {
 	alignment: Alignment;
 	level: number;
 	proficiency: number;
+	inspiration: boolean;
 	abilities: Abilities;
 	skills: Skills;
 	otherProficienciesAndLanguages?: string;
