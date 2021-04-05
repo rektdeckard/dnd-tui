@@ -1,7 +1,20 @@
 {
-  "name": "dnd-ink-ts",
-  "version": "0.0.0",
+  "name": "dnd-tui",
+  "version": "0.1.0",
   "license": "MIT",
+  "author": {
+    "name": "Tobias Fried",
+    "email": "friedtm@gmail.com",
+    "url": "https://tobiasfried.com"
+  },
+  "description": "A TUI app for managing D&D character sheets",
+  "keywords": [
+    "dnd",
+    "dungeons and dragons",
+    "tui"
+  ],
+  "repository": "github:rektdeckard/dnd-tui",
+  "private": true,
   "bin": "dist/cli.js",
   "engines": {
     "node": ">=8"
@@ -22,6 +35,8 @@
     "@types/meow": "^5.0.0",
     "@types/node": "^14.14.37",
     "@types/react": "^17.0.3",
+    "@types/ink-big-text": "^1.2.0",
+    "@types/ink-gradient": "^2.0.1",
     "@typescript-eslint/eslint-plugin": "^4.20.0",
     "@typescript-eslint/parser": "^4.20.0",
     "ava": "^3.15.0",
@@ -38,9 +53,6 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.13.10",
-    "@types/ink-big-text": "^1.2.0",
-    "@types/ink-gradient": "^2.0.1",
-    "core-js": "^3.10.0",
     "ink": "^3.0.8",
     "ink-big-text": "^1.2.0",
     "ink-gradient": "^2.0.0",
