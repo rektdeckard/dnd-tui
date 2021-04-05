@@ -1,4 +1,4 @@
-import { RollOrFixed } from "./dice";
+import { Roll, RollOrFixed } from "./dice";
 
 export type ValueOf<T> = T[keyof T];
 
@@ -44,6 +44,12 @@ export type ReadonlyKeys<T> = {
   >;
 }[keyof T];
 
+export interface RollResult {
+  roll: Roll;
+  dice: number[];
+  total: number;
+}
+
 export const formatNumber = (n: number) => (n >= 0 ? `+${n}` : n);
 
 export const formatName = (name: string) =>
@@ -55,11 +61,20 @@ export const formatName = (name: string) =>
       (t) => t.charAt(0).toUpperCase() + t.substr(1).toLowerCase()
     ) ?? name;
 
-export const formatRoll = (r: RollOrFixed): string | number => {
+export const formatDie = (r: RollOrFixed): string | number => {
   if (typeof r === "number") return r;
   return `${r.count ?? 1}d${r.die}${
-    r.modifier && typeof r.modifier === "number" ? `+${r.modifier}` : ""
+    r.modifier ? `+${r.modifier.toString().toUpperCase()}` : ""
   }`;
+};
+
+export const performRoll = (roll: Roll): RollResult => {
+  const { die, count = 1 } = roll;
+  const dice = Array(count)
+    .fill(null)
+    .map(() => Math.floor(Math.random() * die) + 1);
+  const total = dice.reduce((acc, curr) => acc + curr, 0);
+  return { roll, dice, total };
 };
 
 export const getBorder = (

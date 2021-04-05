@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Text, useFocus, useInput } from "ink";
 
-import { getBorder, formatRoll } from "../lib";
+import { getBorder, formatDie } from "../lib";
 import { useCharacter, useViewState } from "../state";
 
 const AttacksLayout: React.FC<{}> = () => {
@@ -33,7 +33,7 @@ const AttacksLayout: React.FC<{}> = () => {
               </Box>
               <Box width={8}>
                 <Text wrap="truncate">
-                  {formatRoll(roll)} {damageType}
+                  {formatDie(roll)} {damageType}
                 </Text>
               </Box>
             </Box>

@@ -51,7 +51,7 @@ const Overview: React.FC<{}> = () => {
           </Box>
           <Box>
             <Text dimColor>EXPERIENCE: </Text>
-            <Text>Milesone</Text>
+            <Text>Milestone</Text>
           </Box>
         </Box>
       </Box>

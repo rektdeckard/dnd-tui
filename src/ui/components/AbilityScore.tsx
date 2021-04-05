@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { Box, Text, Newline, useFocus, useInput } from "ink";
 import TextInput from "ink-text-input";
 
 import { formatNumber, getBorder, StatModifier } from "../../lib";
-import { CharacterSetterOrUpdater, useViewState } from "../../state";
+import {
+  CharacterSetterOrUpdater,
+  useViewState,
+  useRollState,
+} from "../../state";
 
 interface AbilityScoreProps {
   stat: StatModifier;
@@ -21,16 +25,21 @@ const AbilityScore: React.FC<AbilityScoreProps> = ({
   const { isFocused } = useFocus();
   const { activeView, setActiveView } = useViewState();
   const [input, setInput] = useState<string>(base.toString());
+  const performRolls = useRollState(useCallback((s) => s.performRolls, []));
   const isActiveView = activeView === stat;
 
   useInput(
-    (_, key) => {
+    (input, key) => {
+      if (input === " ") {
+        performRolls({ die: 20, count: 1, modifier: stat });
+        return;
+      }
       if (key.return) {
         setActiveView(stat);
         return;
       }
     },
-    { isActive: isFocused }
+    { isActive: isFocused && !isActiveView }
   );
 
   const handleSave = () => {

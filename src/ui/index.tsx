@@ -8,6 +8,7 @@ import { useViewState } from "../state";
 import Overview from "./overview";
 import AbilitiesLayout from "./abilities";
 import SkillsLayout from "./skills";
+import StatusBar from "./components/StatusBar";
 
 const App: React.FC<{}> = () => {
   const mounted = useRef<boolean>(true);
@@ -74,6 +75,7 @@ const App: React.FC<{}> = () => {
         <AbilitiesLayout />
         <SkillsLayout />
       </Box>
+      <StatusBar />
     </Box>
   );
 };
