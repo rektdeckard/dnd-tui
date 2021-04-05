@@ -18,7 +18,7 @@ $ npm install --global dnd-tui
 ```
 
 ```bash
-yarn add -G dnd-tui
+yarn global add dnd-tui
 ```
 
 ## CLI
