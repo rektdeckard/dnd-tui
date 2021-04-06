@@ -64,9 +64,16 @@ export const formatName = (name: string) =>
 export const formatDie = (r: RollOrFixed): string | number => {
   if (typeof r === "number") return r;
   return `${r.count ?? 1}d${r.die}${
-    r.modifier ? `+${r.modifier.toString().toUpperCase()}` : ""
+    r.modifier
+      ? `${
+          typeof r.modifier !== "number" || r.modifier >= 0 ? "+" : ""
+        }${r.modifier.toString().toUpperCase()}`
+      : ""
   }`;
 };
+
+export const formatExperience = (e: number | string | undefined = 0): string =>
+  typeof e === "number" ? `${e} XP` : e;
 
 export const performRoll = (roll: Roll): RollResult => {
   const { die, count = 1 } = roll;
@@ -77,7 +84,7 @@ export const performRoll = (roll: Roll): RollResult => {
   return { roll, dice, total };
 };
 
-export const getBorder = (
+export const getColor = (
   isFocused: boolean,
   isActive: boolean
 ): string | undefined => {

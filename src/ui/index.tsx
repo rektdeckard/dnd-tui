@@ -69,7 +69,7 @@ const App: React.FC<{}> = () => {
     );
 
   return (
-    <Box flexDirection="column" height={rows}>
+    <Box flexDirection="column" height={rows - 1}>
       <Overview />
       <Box>
         <AbilitiesLayout />

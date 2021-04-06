@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { Box, Text, useFocus, useInput } from "ink";
 
-import { getBorder, Character, BooleanKeys } from "../../lib";
+import { getColor, Character, BooleanKeys, formatName } from "../../lib";
 import { useCharacter } from "../../state";
 
 type BooleanProperty = NonNullable<BooleanKeys<Character>>;
@@ -37,13 +37,13 @@ const BooleanField: React.FC<BooleanFieldProps> = ({ property }) => {
   return (
     <Box
       borderStyle="round"
-      borderColor={getBorder(isFocused, false)}
+      borderColor={getColor(isFocused, false)}
       paddingX={1}
     >
       <Box width={4} marginRight={1}>
         <Text>{propertyValue && "*"}</Text>
       </Box>
-      <Text>{property.replace(/^\w/, (c) => c.toUpperCase())}</Text>
+      <Text>{formatName(property)}</Text>
     </Box>
   );
 };

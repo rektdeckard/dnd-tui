@@ -1,59 +1,121 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { Box, Text, useFocus, useInput } from "ink";
 
 import { useCharacter, useViewState } from "../../state";
-import { getBorder } from "../../lib";
+import { Ability, getColor, Skill } from "../../lib";
 import CheckOrSave from "./CheckOrSave";
 
+type Save = {
+  property: Ability | Skill;
+  proficient: boolean;
+  save: number;
+};
+
 const SavingThrows: React.FC<{}> = () => {
-  const character = useCharacter(useCallback((c) => c.character, []));
+  const { character, setCharacter } = useCharacter();
   const { isFocused } = useFocus();
   const { activeView, setActiveView } = useViewState();
   const isActiveView = activeView === "saves";
   const [activeSubview, setActiveSubview] = useState<number>(0);
+  const [seek, setSeek] = useState<string>("");
 
-  useInput((_, key) => {
-    if (key.return) {
-      setActiveView("saves");
-      return;
-    }
-    }, { isActive: isFocused && !isActiveView }
+  useInput(
+    (_, key) => {
+      if (key.return) {
+        setActiveView("saves");
+        return;
+      }
+    },
+    { isActive: isFocused && !isActiveView }
   );
 
-  useInput((input, key) => {
-    if (key.escape) {
-      setActiveView(null);
-      return;
-    }
-    if (key.downArrow) {
-      setActiveSubview((s) => (s + 1) % 6);
-      return;
-    }
-    if (key.upArrow) {
-      setActiveSubview((s) => (s + 5) % 6);
-      return
-    }
-    }, { isActive: isActiveView }
-  );
-
-  const saves = [
-    { name: "Strength", proficient: character.abilities.strength.proficient, save: character.strSave },
-    { name: "Dexterity", proficient: character.abilities.dexterity.proficient, save: character.dexSave },
-    { name: "Constitution", proficient: character.abilities.constitution.proficient, save: character.conSave },
-    { name: "Intelligence", proficient: character.abilities.intelligence.proficient, save: character.intSave },
-    { name: "Wisdom", proficient: character.abilities.wisdom.proficient, save: character.wisSave },
-    { name: "Charisma", proficient: character.abilities.charisma.proficient, save: character.chaSave },
+  const saves: Save[] = [
+    {
+      property: "strength",
+      proficient: character.abilities.strength.proficient,
+      save: character.strSave,
+    },
+    {
+      property: "dexterity",
+      proficient: character.abilities.dexterity.proficient,
+      save: character.dexSave,
+    },
+    {
+      property: "constitution",
+      proficient: character.abilities.constitution.proficient,
+      save: character.conSave,
+    },
+    {
+      property: "intelligence",
+      proficient: character.abilities.intelligence.proficient,
+      save: character.intSave,
+    },
+    {
+      property: "wisdom",
+      proficient: character.abilities.wisdom.proficient,
+      save: character.wisSave,
+    },
+    {
+      property: "charisma",
+      proficient: character.abilities.charisma.proficient,
+      save: character.chaSave,
+    },
   ];
+
+  const handleSeek = (input: string) => {
+    const newSeek = seek + input;
+    const matchingIndex = Object.keys(character.abilities).findIndex((s) =>
+      s.startsWith(newSeek.toLowerCase())
+    );
+    if (matchingIndex >= 0) {
+      setActiveSubview(matchingIndex);
+      setSeek(newSeek);
+    }
+    setTimeout(() => setSeek(""), 2000);
+  };
+
+  useInput(
+    (input, key) => {
+      if (key.escape) {
+        setActiveView(null);
+        return;
+      }
+      if (key.downArrow) {
+        setActiveSubview((s) => (s + 1) % saves.length);
+        return;
+      }
+      if (key.upArrow) {
+        setActiveSubview((s) => (s + (saves.length - 1)) % saves.length);
+        return;
+      }
+      if (key.pageDown) {
+        setActiveSubview(saves.length - 1);
+        return;
+      }
+      if (key.pageUp) {
+        setActiveSubview(0);
+        return;
+      }
+
+      handleSeek(input);
+    },
+    { isActive: isActiveView }
+  );
 
   return (
     <Box
       flexDirection="column"
       borderStyle="round"
-      borderColor={getBorder(isFocused, isActiveView)}
+      borderColor={getColor(isFocused, isActiveView)}
       paddingX={1}
     >
       {saves.map((ability, i) => (
-        <CheckOrSave key={ability.name} active={isActiveView && activeSubview === i} {...ability} />
+        <CheckOrSave
+          key={ability.property}
+          active={isActiveView && activeSubview === i}
+          set={setCharacter}
+          {...ability}
+        />
       ))}
       <Box justifyContent="center" marginTop={1}>
         <Text dimColor>SAVING THROWS</Text>

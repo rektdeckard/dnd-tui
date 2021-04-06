@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Text, useFocus, useInput } from "ink";
 
-import { getBorder } from "../lib";
+import { formatExperience, getColor } from "../lib";
 import { useCharacter, useViewState } from "../state";
 
 const Overview: React.FC<{}> = () => {
@@ -16,7 +16,7 @@ const Overview: React.FC<{}> = () => {
   return (
     <Box
       borderStyle="round"
-      borderColor={getBorder(isFocused, activeView === "overview")}
+      borderColor={getColor(isFocused, activeView === "overview")}
       paddingX={3}
       paddingY={1}
     >
@@ -51,7 +51,7 @@ const Overview: React.FC<{}> = () => {
           </Box>
           <Box>
             <Text dimColor>EXPERIENCE: </Text>
-            <Text>Milestone</Text>
+            <Text>{formatExperience(character.experience)}</Text>
           </Box>
         </Box>
       </Box>

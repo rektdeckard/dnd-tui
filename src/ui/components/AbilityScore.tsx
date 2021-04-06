@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import { Box, Text, Newline, useFocus, useInput } from "ink";
 import TextInput from "ink-text-input";
 
-import { formatNumber, getBorder, StatModifier } from "../../lib";
+import { formatNumber, getColor, StatModifier } from "../../lib";
 import {
   CharacterSetterOrUpdater,
   useViewState,
@@ -69,7 +69,7 @@ const AbilityScore: React.FC<AbilityScoreProps> = ({
       borderStyle="round"
       flexDirection="column"
       alignItems="center"
-      borderColor={getBorder(isFocused, isActiveView)}
+      borderColor={getColor(isFocused, isActiveView)}
     >
       <Text color="yellow">
         {formatNumber(modifier)}

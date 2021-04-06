@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Text, useFocus, useInput } from "ink";
 
-import { getBorder, formatDie } from "../lib";
+import { getColor, formatDie } from "../lib";
 import { useCharacter, useViewState } from "../state";
 
 const AttacksLayout: React.FC<{}> = () => {
@@ -19,7 +19,7 @@ const AttacksLayout: React.FC<{}> = () => {
       flexDirection="column"
       borderStyle="round"
       paddingX={1}
-      borderColor={getBorder(isFocused, isActiveView)}
+      borderColor={getColor(isFocused, isActiveView)}
     >
       {attacks.basic.length ? (
         attacks.basic.map(

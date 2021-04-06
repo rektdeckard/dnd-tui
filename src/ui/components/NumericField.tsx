@@ -3,7 +3,7 @@ import { Box, Text, useFocus, useInput } from "ink";
 import TextInput from "ink-text-input";
 
 import {
-  getBorder,
+  getColor,
   Character,
   NumericKeys,
   Mutable,
@@ -71,7 +71,7 @@ const NumericField: React.FC<BooleanFieldProps> = ({ property }) => {
   return (
     <Box
       borderStyle="round"
-      borderColor={getBorder(isFocused, isActiveView)}
+      borderColor={getColor(isFocused, isActiveView)}
       paddingX={1}
     >
       <Box width={4} marginRight={1}>

@@ -12,6 +12,7 @@ const defaultCharData: ICharacter = {
   level: 6,
   proficiency: 3,
   inspiration: true,
+  experience: "Milestone",
   abilities: {
     strength: { base: 13, proficient: true },
     dexterity: { base: 19, proficient: true },
