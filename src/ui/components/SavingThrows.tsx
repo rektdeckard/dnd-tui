@@ -20,8 +20,8 @@ const SavingThrows: React.FC<{}> = () => {
   const [seek, setSeek] = useState<string>("");
 
   useInput(
-    (_, key) => {
-      if (key.return) {
+    (input, key) => {
+      if (key.return || input === " ") {
         setActiveView("saves");
         return;
       }

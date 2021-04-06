@@ -23,8 +23,8 @@ const BooleanField: React.FC<BooleanFieldProps> = ({ property }) => {
   );
 
   useInput(
-    (input, key) => {
-      if (key.return || input === " ") {
+    (input) => {
+      if (input === "e") {
         setCharacter((c) => {
           c[property] = !propertyValue;
           return c;

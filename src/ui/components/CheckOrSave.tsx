@@ -27,11 +27,11 @@ const CheckOrSave: React.FC<{
 
   useInput(
     (input, key) => {
-      if (key.return) {
+      if (input === "e") {
         toggleProficient();
         return;
       }
-      if (input === " ") {
+      if (key.return || input === " ") {
         performRoll({ die: 20, count: 1, modifier: save });
       }
     },

@@ -35,11 +35,11 @@ const NumericField: React.FC<BooleanFieldProps> = ({ property }) => {
 
   useInput(
     (input, key) => {
-      if (key.return) {
+      if (input === "e") {
         setActiveView(property);
         return;
       }
-      if (input === " ") {
+      if (key.return || input === " ") {
         performRolls({ die: 20, count: 1, modifier: propertyValue }); 
       }
     },

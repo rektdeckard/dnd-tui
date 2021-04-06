@@ -16,8 +16,8 @@ const Skills: React.FC<{}> = () => {
   const entryCount = Object.keys(character.skills).length;
 
   useInput(
-    (_, key) => {
-      if (key.return) {
+    (input, key) => {
+      if (key.return || input === " ") {
         setActiveView("skills");
         return;
       }

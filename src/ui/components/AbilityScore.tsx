@@ -30,11 +30,11 @@ const AbilityScore: React.FC<AbilityScoreProps> = ({
 
   useInput(
     (input, key) => {
-      if (input === " ") {
+      if (key.return || input === " ") {
         performRolls({ die: 20, count: 1, modifier: stat });
         return;
       }
-      if (key.return) {
+      if (input === "e") {
         setActiveView(stat);
         return;
       }
