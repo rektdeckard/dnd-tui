@@ -8,9 +8,9 @@ export class Character implements ICharacter {
   class: Class = "Barbarian";
   alignment: Alignment = "Neutral";
   level = 1;
+  experience: number | "Milestone" | undefined = 0;
   proficiency = 2;
   inspiration = false;
-  experience = 0;
   abilities: Abilities = {
     strength: { base: 10, proficient: false },
     dexterity: { base: 10, proficient: false },
@@ -53,6 +53,7 @@ export class Character implements ICharacter {
       this.class = charData.class;
       this.alignment = charData.alignment;
       this.level = charData.level;
+      this.experience = charData.experience;
       this.proficiency = charData.proficiency;
       this.inspiration = charData.inspiration;
       this.abilities = charData.abilities;

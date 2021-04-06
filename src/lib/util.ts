@@ -88,6 +88,6 @@ export const getColor = (
   isFocused: boolean,
   isActive: boolean
 ): string | undefined => {
-  if (isActive && isFocused) return "cyan";
+  if (isActive && isFocused) return "red";
   if (isFocused) return "yellow";
 };
