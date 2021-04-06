@@ -27,7 +27,7 @@ const CheckOrSave: React.FC<{
 
   useInput(
     (input, key) => {
-      if (input === "e") {
+      if (key.ctrl && input === "e") {
         toggleProficient();
         return;
       }

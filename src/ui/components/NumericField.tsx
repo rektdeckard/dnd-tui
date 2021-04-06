@@ -35,7 +35,7 @@ const NumericField: React.FC<BooleanFieldProps> = ({ property }) => {
 
   useInput(
     (input, key) => {
-      if (input === "e") {
+      if (key.ctrl && input === "e") {
         setActiveView(property);
         return;
       }
@@ -70,7 +70,7 @@ const NumericField: React.FC<BooleanFieldProps> = ({ property }) => {
 
   return (
     <Box
-      borderStyle="round"
+      borderStyle="single"
       borderColor={getColor(isFocused, isActiveView)}
       paddingX={1}
     >

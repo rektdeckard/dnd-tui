@@ -34,7 +34,7 @@ const AbilityScore: React.FC<AbilityScoreProps> = ({
         performRolls({ die: 20, count: 1, modifier: stat });
         return;
       }
-      if (input === "e") {
+      if (key.ctrl && input === "e") {
         setActiveView(stat);
         return;
       }
@@ -66,7 +66,7 @@ const AbilityScore: React.FC<AbilityScoreProps> = ({
 
   return (
     <Box
-      borderStyle="round"
+      borderStyle="single"
       flexDirection="column"
       alignItems="center"
       borderColor={getColor(isFocused, isActiveView)}

@@ -17,7 +17,7 @@ const AttacksLayout: React.FC<{}> = () => {
   return (
     <Box
       flexDirection="column"
-      borderStyle="round"
+      borderStyle="single"
       paddingX={1}
       borderColor={getColor(isFocused, isActiveView)}
     >

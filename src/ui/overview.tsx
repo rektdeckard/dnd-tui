@@ -15,7 +15,7 @@ const Overview: React.FC<{}> = () => {
 
   return (
     <Box
-      borderStyle="round"
+      borderStyle="single"
       borderColor={getColor(isFocused, activeView === "overview")}
       paddingX={3}
       paddingY={1}

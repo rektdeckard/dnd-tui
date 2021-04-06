@@ -68,7 +68,7 @@ const Skills: React.FC<{}> = () => {
   return (
     <Box
       flexDirection="column"
-      borderStyle="round"
+      borderStyle="single"
       borderColor={getColor(isFocused, isActiveView)}
       paddingX={1}
     >

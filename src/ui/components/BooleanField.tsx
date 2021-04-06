@@ -23,8 +23,8 @@ const BooleanField: React.FC<BooleanFieldProps> = ({ property }) => {
   );
 
   useInput(
-    (input) => {
-      if (input === "e") {
+    (input, key) => {
+      if (key.ctrl && input === "e") {
         setCharacter((c) => {
           c[property] = !propertyValue;
           return c;
@@ -36,7 +36,7 @@ const BooleanField: React.FC<BooleanFieldProps> = ({ property }) => {
 
   return (
     <Box
-      borderStyle="round"
+      borderStyle="single"
       borderColor={getColor(isFocused, false)}
       paddingX={1}
     >
