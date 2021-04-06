@@ -41,7 +41,7 @@ const BooleanField: React.FC<BooleanFieldProps> = ({ property }) => {
       paddingX={1}
     >
       <Box width={4} marginRight={1}>
-        <Text>{propertyValue && "✱"}</Text>
+        <Text>{propertyValue && "*"}</Text>
       </Box>
       <Text>{property.replace(/^\w/, (c) => c.toUpperCase())}</Text>
     </Box>

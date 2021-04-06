@@ -15,10 +15,13 @@ const StatusBar: React.FC<{}> = () => {
         rollResult?.length &&
         rollResult.map((result, i) => (
           <Box key={`${result.total}-${i}`} marginLeft={2}>
-            <Text>
+            <Text color="yellow">
               {formatDie(result.roll)}
-              {": "}
+              {" = "}
               {result.total}
+              {" ["}
+              {result.dice.join(", ")}
+              {"]"}
             </Text>
           </Box>
         ))}

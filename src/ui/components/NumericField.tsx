@@ -9,7 +9,7 @@ import {
   Mutable,
   formatNumber,
 } from "../../lib";
-import { useCharacter, useViewState } from "../../state";
+import { useCharacter, useViewState, useRollState } from "../../state";
 
 type NumericProperty = NonNullable<NumericKeys<Mutable<Character>>>;
 
@@ -20,6 +20,7 @@ interface BooleanFieldProps {
 const NumericField: React.FC<BooleanFieldProps> = ({ property }) => {
   const { isFocused } = useFocus();
   const { activeView, setActiveView } = useViewState();
+  const performRolls = useRollState(useCallback((s) => s.performRolls, []));
   const isActiveView = activeView === property;
   const { propertyValue, setCharacter } = useCharacter(
     useCallback(
@@ -33,13 +34,16 @@ const NumericField: React.FC<BooleanFieldProps> = ({ property }) => {
   const [input, setInput] = useState<string>(propertyValue.toString());
 
   useInput(
-    (_, key) => {
+    (input, key) => {
       if (key.return) {
         setActiveView(property);
         return;
       }
+      if (input === " ") {
+        performRolls({ die: 20, count: 1, modifier: propertyValue }); 
+      }
     },
-    { isActive: isFocused }
+    { isActive: isFocused && !isActiveView }
   );
 
   const handleSave = () => {

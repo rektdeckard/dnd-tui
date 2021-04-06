@@ -7,13 +7,14 @@ const CheckOrSave: React.FC<{
   name: string;
   proficient: boolean;
   save: number;
-}> = ({ name, proficient, save }) => (
+  active?: boolean;
+}> = ({ name, proficient, save, active }) => (
   <Box alignItems="center">
-    <Text>{proficient ? "✱ " : "  "}</Text>
+    <Text>{proficient ? "* " : "  "}</Text>
     <Box width={3} marginRight={1}>
       <Text>{formatNumber(save)}</Text>
     </Box>
-    <Text>{name}</Text>
+    <Text underline={active}>{name}</Text>
   </Box>
 );
 

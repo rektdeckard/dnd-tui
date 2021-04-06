@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Box, useInput, useApp, useFocusManager } from "ink";
+import { Box, Spacer, useInput, useApp, useFocusManager } from "ink";
 import Gradient from "ink-gradient";
 import BigText from "ink-big-text";
 import useDimensions from "ink-use-stdout-dimensions";
@@ -69,12 +69,13 @@ const App: React.FC<{}> = () => {
     );
 
   return (
-    <Box flexDirection="column" height={rows - 1}>
+    <Box flexDirection="column" height={rows}>
       <Overview />
       <Box>
         <AbilitiesLayout />
         <SkillsLayout />
       </Box>
+      <Spacer />
       <StatusBar />
     </Box>
   );
