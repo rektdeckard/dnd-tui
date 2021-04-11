@@ -1,13 +1,14 @@
 import React, { useState, useCallback } from "react";
-import { Box, Text, Newline, useFocus, useInput } from "ink";
+import { Text, Newline, useFocus, useInput } from "ink";
 import TextInput from "ink-text-input";
 
-import { formatNumber, getColor, StatModifier } from "../../lib";
+import { formatNumber, StatModifier } from "../../lib";
 import {
   CharacterSetterOrUpdater,
   useViewState,
   useRollState,
 } from "../../state";
+import BorderBox from "./BorderBox";
 
 interface AbilityScoreProps {
   stat: StatModifier;
@@ -31,7 +32,21 @@ const AbilityScore: React.FC<AbilityScoreProps> = ({
   useInput(
     (input, key) => {
       if (key.return || input === " ") {
-        performRolls({ die: 20, count: 1, modifier: stat });
+        performRolls({
+          die: 20,
+          count: 1,
+          modifier: stat,
+        });
+        return;
+      }
+      if ((input === "r" || input === "R") && (key.ctrl || key.shift)) {
+        performRolls({
+          die: 20,
+          count: 1,
+          modifier: stat,
+          advantage: key.shift,
+          disadvantage: key.ctrl,
+        });
         return;
       }
       if (key.ctrl && input === "e") {
@@ -65,11 +80,11 @@ const AbilityScore: React.FC<AbilityScoreProps> = ({
   );
 
   return (
-    <Box
-      borderStyle="single"
+    <BorderBox
       flexDirection="column"
       alignItems="center"
-      borderColor={getColor(isFocused, isActiveView)}
+      focused={isFocused}
+      active={isActiveView}
     >
       <Text color="yellow">
         {formatNumber(modifier)}
@@ -81,7 +96,7 @@ const AbilityScore: React.FC<AbilityScoreProps> = ({
       ) : (
         <Text>{base}</Text>
       )}
-    </Box>
+    </BorderBox>
   );
 };
 

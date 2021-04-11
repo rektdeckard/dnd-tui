@@ -2,14 +2,9 @@ import React, { useState, useCallback } from "react";
 import { Box, Text, useFocus, useInput } from "ink";
 import TextInput from "ink-text-input";
 
-import {
-  getColor,
-  Character,
-  NumericKeys,
-  Mutable,
-  formatNumber,
-} from "../../lib";
+import { Character, NumericKeys, Mutable, formatNumber } from "../../lib";
 import { useCharacter, useViewState, useRollState } from "../../state";
+import BorderBox from "./BorderBox";
 
 type NumericProperty = NonNullable<NumericKeys<Mutable<Character>>>;
 
@@ -40,7 +35,23 @@ const NumericField: React.FC<BooleanFieldProps> = ({ property }) => {
         return;
       }
       if (key.return || input === " ") {
-        performRolls({ die: 20, count: 1, modifier: propertyValue }); 
+        performRolls({
+          die: 20,
+          count: 1,
+          modifier: propertyValue,
+          advantage: key.shift,
+          disadvantage: key.ctrl,
+        });
+      }
+      if ((input === "r" || input === "R") && (key.ctrl || key.shift)) {
+        performRolls({
+          die: 20,
+          count: 1,
+          modifier: propertyValue,
+          advantage: key.shift,
+          disadvantage: key.ctrl,
+        });
+        return;
       }
     },
     { isActive: isFocused && !isActiveView }
@@ -69,11 +80,7 @@ const NumericField: React.FC<BooleanFieldProps> = ({ property }) => {
   );
 
   return (
-    <Box
-      borderStyle="single"
-      borderColor={getColor(isFocused, isActiveView)}
-      paddingX={1}
-    >
+    <BorderBox focused={isFocused} active={isActiveView}>
       <Box width={4} marginRight={1}>
         {isActiveView ? (
           <TextInput value={input} onChange={setInput} onSubmit={handleSave} />
@@ -82,7 +89,7 @@ const NumericField: React.FC<BooleanFieldProps> = ({ property }) => {
         )}
       </Box>
       <Text>{property.replace(/^\w/, (c) => c.toUpperCase())}</Text>
-    </Box>
+    </BorderBox>
   );
 };
 

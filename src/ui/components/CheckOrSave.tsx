@@ -32,7 +32,23 @@ const CheckOrSave: React.FC<{
         return;
       }
       if (key.return || input === " ") {
-        performRoll({ die: 20, count: 1, modifier: save });
+        performRoll({
+          die: 20,
+          count: 1,
+          modifier: save,
+          advantage: key.shift,
+          disadvantage: key.ctrl,
+        });
+      }
+      if ((input === "r" || input === "R") && (key.ctrl || key.shift)) {
+        performRoll({
+          die: 20,
+          count: 1,
+          modifier: save,
+          advantage: key.shift,
+          disadvantage: key.ctrl,
+        });
+        return;
       }
     },
     { isActive: active }

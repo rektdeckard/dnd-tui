@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Text, useFocus, useInput } from "ink";
 
 import { useCharacter, useViewState } from "../../state";
-import { getColor, Skill } from "../../lib";
+import { Skill } from "../../lib";
 import CheckOrSave from "./CheckOrSave";
+import BorderBox from "./BorderBox";
 
 const Skills: React.FC<{}> = () => {
   const { character, setCharacter } = useCharacter();
@@ -12,6 +13,10 @@ const Skills: React.FC<{}> = () => {
   const isActiveView = activeView === "skills";
   const [activeSubview, setActiveSubview] = useState<number>(0);
   const [seek, setSeek] = useState<string>("");
+
+  useEffect(() => {
+    if (!isFocused) setActiveView(null);
+  }, [isFocused]);
 
   const entryCount = Object.keys(character.skills).length;
 
@@ -60,32 +65,27 @@ const Skills: React.FC<{}> = () => {
         return;
       }
 
-      handleSeek(input);
+      if (!(key.shift || key.ctrl)) handleSeek(input);
     },
-    { isActive: isActiveView }
+    { isActive: isActiveView && isFocused }
   );
 
   return (
-    <Box
-      flexDirection="column"
-      borderStyle="single"
-      borderColor={getColor(isFocused, isActiveView)}
-      paddingX={1}
-    >
+    <BorderBox flexDirection="column" focused={isFocused} active={isActiveView}>
       {Object.entries(character.skills).map(([skill, { proficient }], i) => (
         <CheckOrSave
           key={skill}
           property={skill as Skill}
           proficient={proficient}
           save={character[skill]}
-          active={isActiveView && activeSubview === i}
+          active={isFocused && isActiveView && activeSubview === i}
           set={setCharacter}
         />
       ))}
       <Box justifyContent="center" marginTop={1}>
         <Text dimColor>SKILLS</Text>
       </Box>
-    </Box>
+    </BorderBox>
   );
 };
 

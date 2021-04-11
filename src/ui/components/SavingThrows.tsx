@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Text, useFocus, useInput } from "ink";
 
 import { useCharacter, useViewState } from "../../state";
-import { Ability, getColor, Skill } from "../../lib";
+import { Ability, Skill } from "../../lib";
 import CheckOrSave from "./CheckOrSave";
+import BorderBox from "./BorderBox";
 
 type Save = {
   property: Ability | Skill;
@@ -18,6 +19,10 @@ const SavingThrows: React.FC<{}> = () => {
   const isActiveView = activeView === "saves";
   const [activeSubview, setActiveSubview] = useState<number>(0);
   const [seek, setSeek] = useState<string>("");
+
+  useEffect(() => {
+    if (!isFocused) setActiveView(null);
+  }, [isFocused]);
 
   useInput(
     (input, key) => {
@@ -97,22 +102,17 @@ const SavingThrows: React.FC<{}> = () => {
         return;
       }
 
-      handleSeek(input);
+      if (!(key.shift || key.ctrl)) handleSeek(input);
     },
-    { isActive: isActiveView }
+    { isActive: isActiveView && isFocused }
   );
 
   return (
-    <Box
-      flexDirection="column"
-      borderStyle="single"
-      borderColor={getColor(isFocused, isActiveView)}
-      paddingX={1}
-    >
+    <BorderBox flexDirection="column" focused={isFocused} active={isActiveView}>
       {saves.map((ability, i) => (
         <CheckOrSave
           key={ability.property}
-          active={isActiveView && activeSubview === i}
+          active={isFocused && isActiveView && activeSubview === i}
           set={setCharacter}
           {...ability}
         />
@@ -120,7 +120,7 @@ const SavingThrows: React.FC<{}> = () => {
       <Box justifyContent="center" marginTop={1}>
         <Text dimColor>SAVING THROWS</Text>
       </Box>
-    </Box>
+    </BorderBox>
   );
 };
 

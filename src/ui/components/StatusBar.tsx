@@ -3,32 +3,40 @@ import { Box, Text, Spacer } from "ink";
 import Spinner from "ink-spinner";
 
 import { useRollState } from "../../state";
-import { formatDie } from "../../lib";
+import { formatDie, getRollColor } from "../../lib";
 
-const controls = ["Activate/Roll: [return]", "Edit: [ctrl+e]", "Clear: [esc]"].join(
-  "  |  "
-);
+const controls = [
+  "SELECT/ROLL [return]",
+  "ROLL ADV/DIS [shift/ctrl+r]",
+  "EDIT [ctrl+e]",
+  "CLEAR [esc]",
+].join("  |  ");
 
 const StatusBar: React.FC<{}> = () => {
   const { rolling, rollResult } = useRollState();
 
   return (
     <Box height={1} justifyContent="flex-end" paddingX={1}>
-      <Text>{controls}</Text>
+      <Text dimColor>{controls}</Text>
       <Spacer />
       {rolling && <Spinner type="dots" />}
       {!rolling &&
         rollResult?.length &&
         rollResult.map((result, i) => (
           <Box key={`${result.total}-${i}`} marginLeft={2}>
-            <Text color="yellow">
+            <Text>
               {formatDie(result.roll)}
               {" = "}
-              {result.total}
-              {" ["}
-              {result.dice.join(", ")}
-              {"]"}
             </Text>
+            <Text color={getRollColor(result, -1)}>{result.total}</Text>
+            <Text>{" ["}</Text>
+            {result.dice.map((d, j) => (
+              <React.Fragment key={j}>
+                <Text color={getRollColor(result, j)}>{d}</Text>
+                {j < result.dice.length - 1 && <Text>{", "}</Text>}
+              </React.Fragment>
+            ))}
+            <Text>{"]"}</Text>
           </Box>
         ))}
     </Box>
