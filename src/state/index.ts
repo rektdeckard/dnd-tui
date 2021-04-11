@@ -13,6 +13,47 @@ const defaultCharData: ICharacter = {
   proficiency: 3,
   inspiration: true,
   experience: "Milestone",
+  armorClass: 18,
+  speed: 45,
+  hitPoints: {
+    maximum: 51,
+    current: 51,
+    temporary: 0,
+  },
+  hitDice: {
+    roll: { count: 6, die: 8 },
+    current: 6,
+  },
+  deathSaves: {
+    successes: 0,
+    failures: 0,
+  },
+  equipment: {
+    money: {
+      cp: 0,
+      sp: 1,
+      ep: 0,
+      gp: 142,
+      pp: 0,
+    },
+    items: [
+      { name: "Calligrapher case" },
+      { name: "Scroll case" },
+      { name: "Winter blanket" },
+      { name: "Herbalism kit" },
+      { name: "Explorer's pack" },
+      { name: "Darts", count: 9 },
+      { name: "Sending stone" },
+      { name: "Ball bearings", count: 2000 },
+      {
+        name: "Belt of Meditation",
+        description:
+          "Once per long rest, you may use a standard action to regain 1 Ki point.",
+      },
+      { name: "Necklace of Fireball", count: 3 },
+      { name: "Large emerald", count: 1 },
+    ],
+  },
   abilities: {
     strength: { base: 13, proficient: true },
     dexterity: { base: 19, proficient: true },

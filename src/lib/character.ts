@@ -11,6 +11,31 @@ export class Character implements ICharacter {
   experience: number | "Milestone" | undefined = 0;
   proficiency = 2;
   inspiration = false;
+  armorClass = 10;
+  speed = 30;
+  hitPoints = {
+    maximum: 10,
+    current: 10,
+    temporary: 0,
+  };
+  hitDice = {
+    roll: { die: 6, count: this.level } as RollOrFixed,
+    current: this.level,
+  };
+  deathSaves = {
+    successes: 0 as Strikeable,
+    failures: 0 as Strikeable,
+  };
+  equipment = {
+    money: {
+      cp: 0,
+      sp: 0,
+      ep: 0,
+      gp: 0,
+      pp: 0,
+    },
+    items: [] as Item[],
+  };
   abilities: Abilities = {
     strength: { base: 10, proficient: false },
     dexterity: { base: 10, proficient: false },
@@ -56,6 +81,12 @@ export class Character implements ICharacter {
       this.experience = charData.experience;
       this.proficiency = charData.proficiency;
       this.inspiration = charData.inspiration;
+      this.armorClass = charData.armorClass;
+      this.speed = charData.speed;
+      this.hitPoints = charData.hitPoints;
+      this.hitDice = charData.hitDice;
+      this.deathSaves = charData.deathSaves;
+      this.equipment = charData.equipment;
       this.abilities = charData.abilities;
       this.skills = charData.skills;
       this.otherProficienciesAndLanguages =
@@ -225,6 +256,10 @@ export class Character implements ICharacter {
   get passiveWisdom(): number {
     return 10 + this.wis;
   }
+
+  get initiative(): number {
+    return this.dex;
+  }
 }
 
 export interface ICharacter {
@@ -235,13 +270,46 @@ export interface ICharacter {
   class: Class;
   alignment: Alignment;
   level: number;
+  experience?: number | "Milestone";
+  armorClass: number;
+  speed: number;
+  hitPoints: {
+    maximum: number;
+    current: number;
+    temporary: number;
+  };
+  hitDice: {
+    roll: RollOrFixed;
+    current: number;
+  };
+  deathSaves: {
+    successes: Strikeable;
+    failures: Strikeable;
+  };
   proficiency: number;
   inspiration: boolean;
   abilities: Abilities;
   skills: Skills;
   otherProficienciesAndLanguages?: string;
   attacksAndSpells: Attacks;
-  experience?: number | "Milestone";
+  equipment: {
+    money: {
+      cp: number;
+      sp: number;
+      ep: number;
+      gp: number;
+      pp: number;
+    };
+    items: Item[];
+  };
+}
+
+type Strikeable = 0 | 1 | 2 | 3;
+
+interface Item {
+  name: string;
+  description?: string;
+  count?: number;
 }
 
 interface Attacks {
