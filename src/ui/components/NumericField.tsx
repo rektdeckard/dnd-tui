@@ -10,9 +10,11 @@ type NumericProperty = NonNullable<NumericKeys<Mutable<Character>>>;
 
 interface BooleanFieldProps {
   property: NumericProperty;
+  label?: string;
+  mod?: boolean;
 }
 
-const NumericField: React.FC<BooleanFieldProps> = ({ property }) => {
+const NumericField: React.FC<BooleanFieldProps> = ({ property, label, mod = true }) => {
   const { isFocused } = useFocus();
   const { activeView, setActiveView } = useViewState();
   const performRolls = useRollState(useCallback((s) => s.performRolls, []));
@@ -85,10 +87,10 @@ const NumericField: React.FC<BooleanFieldProps> = ({ property }) => {
         {isActiveView ? (
           <TextInput value={input} onChange={setInput} onSubmit={handleSave} />
         ) : (
-          <Text>{formatNumber(propertyValue)}</Text>
+          <Text>{mod ? formatNumber(propertyValue) : propertyValue}</Text>
         )}
       </Box>
-      <Text>{property.replace(/^\w/, (c) => c.toUpperCase())}</Text>
+      <Text>{label ?? property.replace(/^\w/, (c) => c.toUpperCase())}</Text>
     </BorderBox>
   );
 };
