@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Text, useFocus, useInput } from "ink";
 
-import { getColor, formatDie } from "../lib";
-import { useCharacter, useViewState } from "../state";
+import { getColor, formatDie } from "../../lib";
+import { useCharacter, useViewState } from "../../state";
 
 const AttacksLayout: React.FC<{}> = () => {
   const attacks = useCharacter((s) => s.character.attacksAndSpells);
-  const { activeView } = useViewState();
+  const { activeView, setActiveView } = useViewState();
   const { isFocused } = useFocus();
   const isActiveView = activeView === "attacks";
+
+  useEffect(() => {
+    if (!isFocused) setActiveView(null);
+  }, [isFocused]);
 
   useInput((input, key) => {}, {
     isActive: isFocused && isActiveView,

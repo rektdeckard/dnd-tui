@@ -1,8 +1,8 @@
 import React from "react";
 import { Box } from "ink";
 
-import { useCharacter } from "../state";
-import AbilityScore from "./components/AbilityScore";
+import { useCharacter } from "../../state";
+import AbilityScore from "../components/AbilityScore";
 
 const AbilitiesLayout: React.FC<{}> = () => {
   const { character, setCharacter } = useCharacter();

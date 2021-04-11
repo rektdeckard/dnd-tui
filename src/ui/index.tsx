@@ -5,9 +5,9 @@ import BigText from "ink-big-text";
 import useDimensions from "ink-use-stdout-dimensions";
 
 import { useViewState } from "../state";
-import Overview from "./overview";
-import AbilitiesLayout from "./abilities";
-import SkillsLayout from "./skills";
+import OverviewLayout from "./containers/overview";
+import AbilitiesLayout from "./containers/abilities";
+import FeaturesLayout from "./containers/features";
 import StatusBar from "./components/StatusBar";
 
 const App: React.FC<{}> = () => {
@@ -70,10 +70,10 @@ const App: React.FC<{}> = () => {
 
   return (
     <Box flexDirection="column" height={rows - 1}>
-      <Overview />
+      <OverviewLayout />
       <Box>
         <AbilitiesLayout />
-        <SkillsLayout />
+        <FeaturesLayout />
       </Box>
       <Spacer />
       <StatusBar />

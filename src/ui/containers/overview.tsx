@@ -1,10 +1,10 @@
 import React from "react";
 import { Box, Text, useFocus, useInput } from "ink";
 
-import { formatExperience, getColor } from "../lib";
-import { useCharacter, useViewState } from "../state";
+import { formatExperience, getColor } from "../../lib";
+import { useCharacter, useViewState } from "../../state";
 
-const Overview: React.FC<{}> = () => {
+const OverviewLayout: React.FC<{}> = () => {
   const character = useCharacter((s) => s.character);
   const { activeView } = useViewState();
   const { isFocused } = useFocus();
@@ -59,4 +59,4 @@ const Overview: React.FC<{}> = () => {
   );
 };
 
-export default Overview;
+export default OverviewLayout;
