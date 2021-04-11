@@ -15,6 +15,19 @@ const SkillsLayout: React.FC<{}> = () => {
   return (
     <Box>
       <Box flexDirection="column" width={24} marginX={1}>
+        <Box>
+          <NumericField
+            property="armorClass"
+            label="AC"
+            mod={false}
+          />
+          <BorderBox>
+            <Box width={4} marginRight={1}>
+              <Text>{character.initiative}</Text>
+            </Box>
+            <Text>INIT</Text>
+          </BorderBox>
+        </Box>
         <BooleanField property="inspiration" />
         <NumericField property="proficiency" />
         <SavingThrows />
