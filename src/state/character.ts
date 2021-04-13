@@ -136,7 +136,8 @@ const defaultCharData: ICharacter = {
 void defaultCharData;
 
 export type CharacterSetterOrUpdater = (
-  c: Character | ((c: Character) => Character)
+  c: Character | ((c: Character) => Character),
+  shouldDirty?: boolean
 ) => void;
 
 interface CharacterState {
@@ -149,11 +150,14 @@ interface CharacterState {
 export const useCharacter = create<CharacterState>((set, get) => ({
   character: new Character(),
   isDirty: false,
-  setCharacter: (c: Character | ((c: Character) => Character)) => {
+  setCharacter: (
+    c: Character | ((c: Character) => Character),
+    shouldDirty = true
+  ) => {
     if (typeof c === "function") {
-      set({ character: c(get().character), isDirty: true });
+      set({ character: c(get().character), isDirty: shouldDirty });
     } else {
-      set({ character: c, isDirty: true });
+      set({ character: c, isDirty: shouldDirty });
     }
   },
 }));

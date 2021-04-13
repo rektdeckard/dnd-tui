@@ -42,7 +42,7 @@ try {
         if (err) throw err;
         const c = JSON.parse(data);
         useFileState.getState().setPath(path);
-        useCharacter.getState().setCharacter(new Character(c));
+        useCharacter.getState().setCharacter(new Character(c), false);
       });
     })
   ) {
