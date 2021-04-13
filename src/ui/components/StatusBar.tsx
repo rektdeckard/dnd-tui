@@ -9,15 +9,19 @@ const controls = [
   "SELECT/ROLL [return]",
   "ROLL ADV/DIS [shift/ctrl+r]",
   "EDIT [ctrl+e]",
-  "CLEAR [esc]",
+  "SAVE [ctrl+s]",
 ].join("  |  ");
 
-const StatusBar: React.FC<{}> = () => {
+interface StatusBarProps {
+  message: string | null;
+}
+
+const StatusBar: React.FC<StatusBarProps> = ({ message }) => {
   const { rolling, rollResult } = useRollState();
 
   return (
     <Box height={1} justifyContent="flex-end" paddingX={1}>
-      <Text dimColor>{controls}</Text>
+      <Text dimColor>{message ?? controls}</Text>
       <Spacer />
       {rolling && <Spinner type="dots" />}
       {!rolling &&

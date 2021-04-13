@@ -4,7 +4,7 @@ import Gradient from "ink-gradient";
 import BigText from "ink-big-text";
 import useDimensions from "ink-use-stdout-dimensions";
 
-import { useViewState } from "../state";
+import { useViewState, saveFile, useCharacter } from "../state";
 import OverviewLayout from "./containers/overview";
 import AbilitiesLayout from "./containers/abilities";
 import FeaturesLayout from "./containers/features";
@@ -17,11 +17,37 @@ const App: React.FC<{}> = () => {
   const { focusPrevious, focusNext } = useFocusManager();
   const { activeView } = useViewState();
   const [showIntro, setShowIntro] = useState<boolean>(true);
+  const [canQuit, setCanQuit] = useState<boolean>(true);
+  const [status, setStatus] = useState<string | null>(null);
 
-  useInput((input) => {
+  const doQuit = () => {
+    exit();
+    process.exit(0);
+  };
+
+  useInput((input, key) => {
+    if (!canQuit) {
+      if (input === "y" || input === "Y") {
+        doQuit();
+        return;
+      }
+      if (input === "n" || input === "N") {
+        setStatus(null);
+        setCanQuit(true);
+      }
+    }
     if (input === "q") {
-      exit();
-      process.exit(0);
+      if (useCharacter.getState().isDirty) {
+        setCanQuit(false);
+        setStatus("Do you want to quit without saving? y/n");
+      } else {
+        doQuit();
+      }
+      return;
+    }
+    if (key.ctrl && input === "s") {
+      saveFile();
+      return;
     }
   });
 
@@ -36,7 +62,7 @@ const App: React.FC<{}> = () => {
         return;
       }
     },
-    { isActive: activeView === null }
+    { isActive: activeView === null && !showIntro }
   );
 
   useInput(() => setShowIntro(false), { isActive: showIntro });
@@ -76,7 +102,7 @@ const App: React.FC<{}> = () => {
         <FeaturesLayout />
       </Box>
       <Spacer />
-      <StatusBar />
+      <StatusBar message={status} />
     </Box>
   );
 };
