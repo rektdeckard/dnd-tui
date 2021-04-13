@@ -20,13 +20,9 @@ const SkillsLayout: React.FC<{}> = () => {
             property="armorClass"
             label="AC"
             mod={false}
+            rollable={false}
           />
-          <BorderBox>
-            <Box width={4} marginRight={1}>
-              <Text>{character.initiative}</Text>
-            </Box>
-            <Text>INIT</Text>
-          </BorderBox>
+          <NumericField property="initiative" label="INIT" mod={false} />
         </Box>
         <BooleanField property="inspiration" />
         <NumericField property="proficiency" />

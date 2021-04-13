@@ -47,7 +47,7 @@ const AttacksLayout: React.FC<{}> = () => {
         <Text>(none)</Text>
       )}
       {attacks.additional?.length && (
-        <Box flexDirection="column" height={12} marginTop={1}>
+        <Box flexDirection="column" marginTop={1}>
           {attacks.additional.map(({ name, text }, i) => (
             <Box key={`${name}-${i}`}>
               <Text wrap="end">{name}</Text>
