@@ -1,54 +1,4 @@
-import { Roll, RollOrFixed } from "./dice";
-
-export type ValueOf<T> = T[keyof T];
-
-export type BooleanKeys<T> = {
-  [k in keyof T]: T[k] extends boolean ? k : never;
-}[keyof T];
-
-export type OnlyBoolean<T> = { [k in BooleanKeys<T>]: boolean };
-
-export type NumericKeys<T> = {
-  [k in keyof T]: T[k] extends number ? k : never;
-}[keyof T];
-
-export type OnlyNumeric<T> = { [k in NumericKeys<T>]: number };
-
-export type Mutable<T extends object = {}> = Pick<
-  {
-    [K in keyof T]: T[K];
-  },
-  WritableKeys<T>
->;
-
-type IfEquals<X, Y, A = X, B = never> = (<T>() => T extends X ? 1 : 2) extends <
-  T
->() => T extends Y ? 1 : 2
-  ? A
-  : B;
-
-export type WritableKeys<T> = {
-  [P in keyof T]-?: IfEquals<
-    { [Q in P]: T[P] },
-    { -readonly [Q in P]: T[P] },
-    P
-  >;
-}[keyof T];
-
-export type ReadonlyKeys<T> = {
-  [P in keyof T]-?: IfEquals<
-    { [Q in P]: T[P] },
-    { -readonly [Q in P]: T[P] },
-    never,
-    P
-  >;
-}[keyof T];
-
-export interface RollResult {
-  roll: Roll;
-  dice: number[];
-  total: number;
-}
+import { Roll, RollOrFixed, RollResult } from ".";
 
 export const formatNumber = (n: number) => (n >= 0 ? `+${n}` : n);
 
@@ -63,7 +13,9 @@ export const formatName = (name: string) =>
 
 export const formatDie = (r: RollOrFixed): string | number => {
   if (typeof r === "number") return r;
-  return `${r.advantage ? "▲ " : r.disadvantage ? "▼ " : ""}${r.count ?? 1}d${r.die}${
+  return `${r.advantage ? "▲ " : r.disadvantage ? "▼ " : ""}${r.count ?? 1}d${
+    r.die
+  }${
     r.modifier
       ? `${
           typeof r.modifier !== "number" || r.modifier >= 0 ? "+" : ""

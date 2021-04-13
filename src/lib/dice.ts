@@ -9,3 +9,9 @@ export interface Roll {
 }
 
 export type RollOrFixed = Roll | number;
+
+export interface RollResult {
+  roll: Roll;
+  dice: number[];
+  total: number;
+}

@@ -1,4 +1,4 @@
-import { RollOrFixed } from "./dice";
+import { RollOrFixed } from ".";
 
 export class Character implements ICharacter {
   playerName = "";
@@ -7,11 +7,13 @@ export class Character implements ICharacter {
   race: Race = "Dwarf";
   class: Class = "Barbarian";
   alignment: Alignment = "Neutral";
+  background = "";
   level = 1;
   experience: number | "Milestone" | undefined = 0;
   proficiency = 2;
   inspiration = false;
   armorClass = 10;
+  initiative_modifier = 0;
   speed = 30;
   hitPoints = {
     maximum: 10,
@@ -77,11 +79,13 @@ export class Character implements ICharacter {
       this.race = charData.race;
       this.class = charData.class;
       this.alignment = charData.alignment;
+      this.background = charData.background;
       this.level = charData.level;
       this.experience = charData.experience;
       this.proficiency = charData.proficiency;
       this.inspiration = charData.inspiration;
       this.armorClass = charData.armorClass;
+      this.initiative_modifier = charData.initiative_modifier ?? 0;
       this.speed = charData.speed;
       this.hitPoints = charData.hitPoints;
       this.hitDice = charData.hitDice;
@@ -258,7 +262,11 @@ export class Character implements ICharacter {
   }
 
   get initiative(): number {
-    return this.dex;
+    return this.dex + this.initiative_modifier ?? 0;
+  }
+
+  set initiative(n: number) {
+    this.initiative_modifier = n - this.dex;
   }
 }
 
@@ -269,10 +277,12 @@ export interface ICharacter {
   race: Race;
   class: Class;
   alignment: Alignment;
+  background: string;
   level: number;
   experience?: number | "Milestone";
   armorClass: number;
   speed: number;
+  initiative_modifier?: number;
   hitPoints: {
     maximum: number;
     current: number;
@@ -330,7 +340,7 @@ interface AdditionalAction {
   text?: string;
 }
 
-type DamageType =
+export type DamageType =
   | "Slashing"
   | "Piercing"
   | "Bludgeoning"
@@ -345,9 +355,9 @@ type DamageType =
   | "Force"
   | "Magical";
 
-type Sex = "Male" | "Female" | "Other";
+export type Sex = "Male" | "Female" | "Other";
 
-type Race =
+export type Race =
   | "Dwarf"
   | "Elf"
   | "Halfling"
@@ -358,7 +368,7 @@ type Race =
   | "Half-Orc"
   | "Tiefling";
 
-type Class =
+export type Class =
   | "Barbarian"
   | "Bard"
   | "Cleric"
@@ -414,7 +424,7 @@ export type Skill =
   | "stealth"
   | "survival";
 
-type Alignment =
+export type Alignment =
   | "Lawful Good"
   | "Neutral Good"
   | "Chaotic Good"
