@@ -1,11 +1,9 @@
 import React, { useCallback } from "react";
 import { Box, Text, useFocus, useInput } from "ink";
 
-import { Character, BooleanKeys, formatName } from "../../lib";
+import { BooleanProperty, formatName } from "../../lib";
 import { useCharacter } from "../../state";
 import BorderBox from "./BorderBox";
-
-type BooleanProperty = NonNullable<BooleanKeys<Character>>;
 
 interface BooleanFieldProps {
   property: BooleanProperty;

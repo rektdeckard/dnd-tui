@@ -2,19 +2,23 @@ import React, { useState, useCallback } from "react";
 import { Box, Text, useFocus, useInput } from "ink";
 import TextInput from "ink-text-input";
 
-import { Character, NumericKeys, Mutable, formatNumber } from "../../lib";
+import { NumericProperty, formatNumber } from "../../lib";
 import { useCharacter, useViewState, useRollState } from "../../state";
 import BorderBox from "./BorderBox";
 
-type NumericProperty = NonNullable<NumericKeys<Mutable<Character>>>;
-
-interface BooleanFieldProps {
+interface NumericFieldProps {
   property: NumericProperty;
   label?: string;
   mod?: boolean;
+  rollable?: boolean;
 }
 
-const NumericField: React.FC<BooleanFieldProps> = ({ property, label, mod = true }) => {
+const NumericField: React.FC<NumericFieldProps> = ({
+  property,
+  label,
+  mod = true,
+  rollable = true,
+}) => {
   const { isFocused } = useFocus();
   const { activeView, setActiveView } = useViewState();
   const performRolls = useRollState(useCallback((s) => s.performRolls, []));
@@ -36,6 +40,8 @@ const NumericField: React.FC<BooleanFieldProps> = ({ property, label, mod = true
         setActiveView(property);
         return;
       }
+
+      if (!rollable) return;
       if (key.return || input === " ") {
         performRolls({
           die: 20,
