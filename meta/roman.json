@@ -15,8 +15,8 @@
   "speed": 45,
   "hitPoints": {
     "maximum": 51,
-    "current": 51,
-    "temporary": 0
+    "current": 13,
+    "temporary": 5
   },
   "hitDice": {
     "roll": {

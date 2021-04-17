@@ -63,3 +63,10 @@ export const getRollColor = (result: RollResult, index: number = -1) => {
   if (result.dice[index] === result.roll.die) return "green";
   return undefined;
 };
+
+export const getHealthColor = (current: number, maximum: number) => {
+  if (current / maximum > 0.8) return "green";
+  if (current / maximum >= 0.6) return undefined;
+  if (current / maximum >= 0.4) return "yellow";
+  return "red";
+}

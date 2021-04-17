@@ -7,6 +7,7 @@ import useDimensions from "ink-use-stdout-dimensions";
 import { useViewState, saveFile, useCharacter } from "../state";
 import OverviewLayout from "./containers/overview";
 import AbilitiesLayout from "./containers/abilities";
+import SkillsLayout from "./containers/skills";
 import FeaturesLayout from "./containers/features";
 import StatusBar from "./components/StatusBar";
 
@@ -99,6 +100,7 @@ const App: React.FC<{}> = () => {
       <OverviewLayout />
       <Box>
         <AbilitiesLayout />
+        <SkillsLayout />
         <FeaturesLayout />
       </Box>
       <Spacer />

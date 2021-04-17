@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { Box, Text, useFocus, useInput } from "ink";
+import { Box, DOMElement, Spacer, Text, useFocus, useInput } from "ink";
 import TextInput from "ink-text-input";
 
 import { NumericProperty, formatNumber } from "../../lib";
@@ -13,12 +13,16 @@ interface NumericFieldProps {
   rollable?: boolean;
 }
 
-const NumericField: React.FC<NumericFieldProps> = ({
-  property,
-  label,
-  mod = true,
-  rollable = true,
-}) => {
+const NumericField = React.forwardRef<
+      DOMElement,
+      React.ComponentPropsWithoutRef<typeof Box> &
+      NumericFieldProps>(({
+      property,
+      label,
+      mod = true,
+      rollable = true,
+      ...rest
+    }, ref) => {
   const { isFocused } = useFocus();
   const { activeView, setActiveView } = useViewState();
   const performRolls = useRollState(useCallback((s) => s.performRolls, []));
@@ -88,8 +92,13 @@ const NumericField: React.FC<NumericFieldProps> = ({
   );
 
   return (
-    <BorderBox focused={isFocused} active={isActiveView}>
-      <Box width={4} marginRight={1}>
+    <BorderBox
+      ref={ref}
+      focused={isFocused}
+      active={isActiveView}
+      {...rest}
+    >
+      <Box minWidth={3} marginRight={1}>
         {isActiveView ? (
           <TextInput value={input} onChange={setInput} onSubmit={handleSave} />
         ) : (
@@ -97,8 +106,9 @@ const NumericField: React.FC<NumericFieldProps> = ({
         )}
       </Box>
       <Text>{label ?? property.replace(/^\w/, (c) => c.toUpperCase())}</Text>
+      <Spacer />
     </BorderBox>
   );
-};
+});
 
 export default NumericField;

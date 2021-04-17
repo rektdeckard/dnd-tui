@@ -5,11 +5,11 @@ import { BooleanProperty, formatName } from "../../lib";
 import { useCharacter } from "../../state";
 import BorderBox from "./BorderBox";
 
-interface BooleanFieldProps {
+interface BooleanFieldProps extends React.ComponentPropsWithoutRef<typeof Box> {
   property: BooleanProperty;
 }
 
-const BooleanField: React.FC<BooleanFieldProps> = ({ property }) => {
+const BooleanField: React.FC<BooleanFieldProps> = ({ property, ...rest }) => {
   const { isFocused } = useFocus();
   const { propertyValue, setCharacter } = useCharacter(
     useCallback(
@@ -34,8 +34,8 @@ const BooleanField: React.FC<BooleanFieldProps> = ({ property }) => {
   );
 
   return (
-    <BorderBox focused={isFocused}>
-      <Box width={4} marginRight={1}>
+    <BorderBox focused={isFocused} {...rest}>
+      <Box minWidth={3} marginRight={1}>
         <Text>{propertyValue && "*"}</Text>
       </Box>
       <Text>{formatName(property)}</Text>
