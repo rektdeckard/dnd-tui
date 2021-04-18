@@ -23,7 +23,15 @@ yarn global add dnd-tui
 
 ## CLI
 
-> TBD
+Create a new character:
+```bash
+dnd-tui
+```
+
+Open an existing character:
+```bash
+dnd-tui path/to/character.json
+```
 
 ## Screenshots
 

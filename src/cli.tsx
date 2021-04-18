@@ -11,10 +11,11 @@ import { useFileState } from "./state/data";
 const cli = meow(
   `
 	Usage
-	  $ dnd-tui
+	  $ dnd-tui [CHARFILE]
 
 	Options
-		--file  path/to/character.json
+		-f, --file [CHARFILE]         alias to open existing CHARFILE
+    -h, --help                    show this help message
 
 	Examples
 	  $ dnd-tui ~/games/elrond.json
@@ -25,9 +26,17 @@ const cli = meow(
         type: "string",
         alias: "f",
       },
+      help: {
+        type: "boolean",
+        alias: "h",
+      },
     },
   }
 );
+
+if (cli.flags.help) {
+  cli.showHelp();
+}
 
 const path = cli.input[0] || cli.flags.file;
 

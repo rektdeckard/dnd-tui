@@ -1,6 +1,6 @@
 {
   "name": "dnd-tui",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "license": "MIT",
   "author": {
     "name": "Tobias Fried",
@@ -14,8 +14,8 @@
     "tui"
   ],
   "repository": "github:rektdeckard/dnd-tui",
-  "private": true,
-  "bin": "dist/cli.js",
+  "private": false,
+  "bin": "bin/dnd-tui.js",
   "engines": {
     "node": ">=8"
   },
